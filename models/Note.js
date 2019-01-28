@@ -5,7 +5,9 @@ var NoteSchema = new Schema({
 
     title: String,
 
-    body: String
+    body: String,
+
+    article: String
 });
 
 var Note = mongoose.model("Note", NoteSchema);

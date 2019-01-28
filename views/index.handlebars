@@ -29,6 +29,7 @@
     <div class="container">
         <h1 class="display-4">Welcome To dotComment!</h1>
         <p class="lead">Comment On The Latest Broadway Headlines</p>
+        <button class="btn btn-primary" type="submit">Extra Extra!</button>
     </div>
 </div>
 {{#each article}}
@@ -40,33 +41,38 @@
         <button type="button" data-id="{{_id}}">View Note</button>
     </div>
 </div>
-{{/each}}
 <div class="modal" id="notes" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Comments</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="closeBtn" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="notes">
-                <p></p>
-            </div>
-            <form class="addNote">
-                <input type="text" id="title" />
-                <textarea id="body"></textarea>
-                <input type="submit" value="Submit">
-            </form>
-            <div class="modal-footer">
-                <button type="button" id="closeBtn" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6">
+                            <div class="notes">
+                                <div class="articleNotes">
+
+                                </div>
+                            </div>
+                            <form class="addNote">
+                                <input type="text" id="title" />
+                                <textarea id="body"></textarea>
+                                <input type="submit" value="Submit" id="savenote" data-id="{{_id}}">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-3 ml-auto"></div>
+                    <div class="modal-footer">
+                        <button type="button" id="closeBtn" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-<script>
-    $("#closeBtn").onClick(function () {
-        modal.style.display = "none";
-    });
-</script>
+        {{/each}}

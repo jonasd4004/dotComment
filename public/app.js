@@ -37,12 +37,13 @@ $(document).on("click", "button", function () {
             // If there's a note in the article
             if (data.note) {
                 data.note.forEach(note => {
-                    $(".notes").append(note);
+                    // Place the title of the note in the title input
+                    var title = $("<p>").html("Title: " + note.title);
+                    var body = $("<p>").html("Body: " + note.body);
+                    var noteSection = $("<div>").append(title).append(body).append("<hr>");
+                    $(".articleNotes").append(noteSection);
                 });
-                // Place the title of the note in the title input
-                $("#titleinput").val(data.note.title);
-                // Place the body of the note in the body textarea
-                $("#bodyinput").val(data.note.body);
+
             }
         });
 });
@@ -50,7 +51,8 @@ $(document).on("click", "button", function () {
 // When you click the savenote button
 $(document).on("click", "#savenote", function () {
     // Grab the id associated with the article from the submit button
-    var thisId = $(this).attr("data-id");
+    var thisId = $(this).data("id");
+    console.log(thisId);
 
     // Run a POST request to change the note, using what's entered in the inputs
     $.ajax({
@@ -58,9 +60,9 @@ $(document).on("click", "#savenote", function () {
         url: "/articles/" + thisId,
         data: {
             // Value taken from title input
-            title: $("#titleinput").val(),
+            title: $("#title").val(),
             // Value taken from note textarea
-            body: $("#bodyinput").val()
+            body: $("#body").val()
         }
     })
         // With that done
@@ -74,4 +76,8 @@ $(document).on("click", "#savenote", function () {
     // Also, remove the values entered in the input and textarea for note entry
     $("#titleinput").val("");
     $("#bodyinput").val("");
+});
+
+$(".closeBtn").on("click", function () {
+    modal.style.display = "none";
 });

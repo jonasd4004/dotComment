@@ -92,8 +92,12 @@ app.get("/articles/:id", async function (req, res) {
         // ..and populate all of the notes associated with it
         .populate("note")
         .then(function (dbArticle) {
+            console.log(dbArticle);
             // If we were able to successfully find an Article with the given id, send it back to the client
-            res.json(dbArticle);
+            return dbArticle;
+        }).then(function (newCommentData) {
+            console.log(newCommentData);
+            res.json(newCommentData);
         })
         .catch(function (err) {
             // If an error occurred, send it to the client
@@ -105,14 +109,20 @@ app.get("/articles/:id", async function (req, res) {
 
 // Route for saving/updating an Article's associated Note
 app.post("/articles/:id", async function (req, res) {
+    console.log("note post route hit");
+    console.log(req.body);
     // TODO
     // ====
     // save the new note that gets posted to the Notes collection
     // then find an article from the req.params.id
     // and update it's "note" property with the _id of the new note
-    const newNote = await db.Note.create(req.body);
-    const article = db.Article.findByIdAndUpdate(req.params.id, { $set: { note: newNote._id } });
-    res.json(article);
+    db.Note.create(req.body).then(function (newNote) {
+        return db.Article.findByIdAndUpdate(req.params.id, { $push: { note: newNote._id } });
+    }).then(function (articleAndNote) {
+        res.status(200).redirect("/articles/" + req.params.id);
+    })
+
+
 });
 
 app.listen(PORT, function () {
