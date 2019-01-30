@@ -77,6 +77,10 @@ app.get("/scrape", function (req, res) {
     });
 });
 
+app.get("/", function (req, res) {
+    res.redirect("/articles");
+});
+
 // Route for getting all Articles from the db
 app.get("/articles", async function (req, res) {
     // TODO: Finish the route so it grabs all of the articles

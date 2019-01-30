@@ -29,7 +29,7 @@
     <div class="container">
         <h1 class="display-4">Welcome To dotComment!</h1>
         <p class="lead">Comment On The Latest Broadway Headlines</p>
-        <button class="btn btn-primary" type="submit">Extra Extra!</button>
+        <a href="/scrape"><button class="btn btn-primary" type="submit">Extra Extra!</button></a>
     </div>
 </div>
 {{#each article}}
@@ -38,9 +38,10 @@
         <a href='{{link}}'>
             <h5 class="card-title">{{title}}</h5>
         </a>
-        <button type="button" data-id="{{_id}}">View Note</button>
+        <button type="button" class="viewNotes" data-id="{{_id}}">View Note</button>
     </div>
 </div>
+{{/each}}
 <div class="modal" id="notes" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -75,4 +76,3 @@
                 </div>
             </div>
         </div>
-        {{/each}}
